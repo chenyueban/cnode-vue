@@ -1,31 +1,55 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div id="app">
+        <Header/>
+        <div class="main">
+            <router-view name="main" :key="$route.params.id"></router-view>
+            <router-view name="user"></router-view>
+        </div>
+        <BackTop />
     </div>
-    <router-view/>
-  </div>
 </template>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
+<script>
+import { BackTop } from 'iview';
+import Header from '@/components/Header';
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+export default {
+  name: 'App',
+  components: {
+    Header,
+    BackTop,
+  },
+};
+</script>
 
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
+<style lang="stylus">
+    *
+        margin 0
+        padding 0
+        box-sizing border-box
+
+    img
+        width 100%
+        display block
+
+    ul, ol
+        list-style none
+        line-height 1
+    a
+        color inherit
+        text-decoration none
+
+    body
+        background-color #e1e1e1
+
+    .main
+        width 90%
+        margin 15px auto
+        max-width 1400px
+        min-width 960px
+        min-height 400px
+        &::after
+            content: ''
+            display block
+            clear both
 </style>
