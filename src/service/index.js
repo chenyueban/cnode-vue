@@ -39,4 +39,53 @@ export default class Api {
   static getUserInfo(loginName) {
     return http.get(`/user/${loginName}`);
   }
+
+  /**
+   * @api /accesstoken
+   *
+   * @name 验证 accessToken 的正确性
+   *
+   * @method POST
+   *
+   * @param accesstoken String 用户的 accessToken
+   *                           如果成功匹配上用户，返回成功信息。否则 403。
+   */
+  static getAccessToken(accesstoken) {
+    return http.post('/accesstoken', { accesstoken });
+  }
+
+  /**
+   * @api /message/count
+   *
+   * @name 获取未读消息数
+   *
+   * @method GET
+   *
+   * @param accesstoken String 用户的 accessToken
+   */
+  static getUnreadCount(accesstoken) {
+    return http.get('/message/count', {
+      params: {
+        accesstoken,
+      },
+    });
+  }
+
+  /**
+   * @api /messages
+   *
+   * @name 获取已读和未读消息
+   *
+   * @method GET
+   *
+   * @param accesstoken String 用户的 accessToken
+   * @param mdrender    String 当为 false 时，不渲染。默认为 true，渲染出现的所有 markdown 格式文本。
+   */
+  static getMessages(accesstoken) {
+    return http.get('/messages', {
+      params: {
+        accesstoken,
+      },
+    });
+  }
 }

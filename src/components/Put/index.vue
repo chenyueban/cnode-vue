@@ -1,43 +1,46 @@
 <template>
-    <div :class="['put', formatTab(data).class]">
-        {{ formatTab(data).label }}
-    </div>
+    <Tag :color="formatTab(data).color">{{ formatTab(data).label }}</Tag>
 </template>
 
 <script>
+import { Tag } from 'iview';
+
 export default {
   name: 'Put',
   props: ['data'],
+  components: {
+    Tag,
+  },
   methods: {
     formatTab(data) {
       if (data.good) {
         return {
-          class: 'put-good',
+          color: 'gold',
           label: '精华',
         };
       } else if (data.top) {
         return {
-          class: 'put-top',
+          color: 'green',
           label: '置顶',
         };
       } else if (data.tab === 'ask') {
         return {
-          class: 'put-ask',
+          color: 'purple',
           label: '问答',
         };
       } else if (data.tab === 'share') {
         return {
-          class: 'put-share',
+          color: 'blue',
           label: '分享',
         };
       } else if (data.tab === 'job') {
         return {
-          class: 'put-job',
+          color: 'magenta',
           label: '招聘',
         };
       }
       return {
-        class: 'put-test',
+        color: 'default',
         label: '测试',
       };
     },
@@ -54,10 +57,4 @@ export default {
         font-size 12px
         line-height 1.2
         display inline-flex
-        &.put-good, &.put-top
-            background-color #80bd01
-            color #fff
-        &.put-ask, &.put-share, &.put-job, &.put-test
-            background-color #e5e5e5
-            color #999
 </style>

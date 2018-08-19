@@ -1,21 +1,8 @@
 # cnode-vue
 
-## Project setup
-```
-yarn install
-```
-
-### Compiles and hot-reloads for development
-```
-yarn run serve
-```
-
-### Compiles and minifies for production
-```
-yarn run build
-```
-
-### Lints and fixes files
-```
-yarn run lint
-```
+## TODO
+1. 文章内标题下方文章信息样式调整
+2. 评论区域样式调整
+3. 主题收藏等功能
+4. 发布评论、评论点赞
+5. 发帖、编辑贴

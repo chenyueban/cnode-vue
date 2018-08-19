@@ -34,7 +34,7 @@
                                 <Time class="time" :time="user.create_at"/>
                             </a>
                         </div>
-                        <Button type="text" class="ups">
+                        <Button size="default" type="text" class="ups">
                             <Icon type="ios-thumbs-up" />
                             <span>{{ user.ups.length }}</span>
                         </Button>

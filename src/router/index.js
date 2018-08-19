@@ -12,22 +12,36 @@ const router = new Router({
       name: 'root',
       path: '/',
       components: {
-        main: () => import('@/components/PostList'),
+        main: () => import('@/views/PostList'),
       },
     },
     {
       name: 'topic',
       path: '/topic/:id&user=:username',
       components: {
-        main: () => import('@/components/Article'),
-        user: () => import('@/components/User'),
+        main: () => import('@/views/Article'),
+        user: () => import('@/views/User'),
       },
     },
     {
       name: 'user',
       path: '/user/:loginname',
       components: {
-        main: () => import('@/components/User'),
+        main: () => import('@/views/User'),
+      },
+    },
+    {
+      name: 'login',
+      path: '/login',
+      components: {
+        login: () => import('@/views/Login'),
+      },
+    },
+    {
+      name: 'message',
+      path: '/message',
+      components: {
+        login: () => import('@/views/Message'),
       },
     },
   ],

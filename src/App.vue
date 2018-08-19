@@ -4,6 +4,7 @@
         <div class="main">
             <router-view name="main" :key="$route.params.id"></router-view>
             <router-view name="user"></router-view>
+            <router-view name="login"></router-view>
         </div>
         <BackTop />
     </div>
@@ -47,7 +48,8 @@ export default {
         margin 15px auto
         max-width 1400px
         min-width 960px
-        min-height 400px
+        min-height calc(100vh - 90px)
+        position relative
         &::after
             content: ''
             display block

@@ -9,7 +9,7 @@
                 }
             }"
         >
-            <img :src="datas.author.avatar_url" :alt="datas.author.loginname">
+            <Avatar size="default" :src="datas.author.avatar_url" />
         </router-link>
         <div
             class="reply"
@@ -37,18 +37,34 @@
                 {{ datas.title }}
             </router-link>
         </div>
-        <Time class="time" :time="datas.last_reply_at"/>
+        <Time
+            class="time"
+            :key="datas.id"
+            :time="datas.last_reply_at"
+            :type="datas.last_reply_at | formatType"
+        />
     </div>
 </template>
 
 <script>
 import Put from '@/components/Put';
+import { Avatar, Time } from 'iview';
+import dayjs from 'dayjs';
 
 export default {
   name: 'Cell',
   props: ['datas'],
   components: {
     Put,
+    Avatar,
+    Time,
+  },
+  filters: {
+    formatType(value) {
+      const now = dayjs();
+      const diff = now.diff(dayjs(value), 'months');
+      return diff > 0 ? 'date' : 'relative';
+    },
   },
   computed: {
     hasCount() {
@@ -66,13 +82,9 @@ export default {
         display flex
         align-items center
         border-bottom 1px solid #f0f0f0
-        .avatar
-            width 30px
-            height 30px
-            border-radius 4px
-            overflow hidden
         .reply
             width 80px
+            font-size 12px
             text-align center
             .reply-count
                 color #9e78c0
@@ -89,6 +101,7 @@ export default {
                 text-overflow ellipsis
                 white-space nowrap
         .time
-            width 60px
+            width 75px
+            font-size 12px
             text-align right
 </style>

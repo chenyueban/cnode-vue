@@ -11,9 +11,7 @@
                         }
                     }"
                 >
-                    <div class="avatar">
-                        <img :src="datas.avatar_url" :alt="datas.loginname">
-                    </div>
+                    <Avatar size="default" class="avatar" :src="datas.avatar_url" />
                 </router-link>
                 <span class="name">{{ datas.loginname }}</span>
             </div>
@@ -23,34 +21,38 @@
             </div>
             <div class="info">
                 <Icon type="logo-github" size="20" />
-                <span>@{{ datas.githubUsername }}</span>
+                <span>
+                    <a target="_blank" :href="`https://github.com/${datas.githubUsername}`">@{{ datas.githubUsername }}</a>
+                </span>
             </div>
             <div class="info">
                 注册时间
-                <Time :time="datas.create_at"/>
+                <Time :time="datas.create_at" type="date"/>
             </div>
         </Card>
 
-        <Card class="card topics-card" title="最近创建的话题" v-if="datas">
+        <Card class="card topics-card" title="最近创建的话题" v-if="datas && datas.recent_topics.length">
             <Cell v-for="data in limitTopics" :datas="data" :key="data.in"/>
         </Card>
 
-        <Card class="card replies-card" title="最近参与的话题" v-if="datas">
+        <Card class="card replies-card" title="最近参与的话题" v-if="datas && datas.recent_replies.length">
             <Cell v-for="data in limitReplies" :datas="data" :key="data.in"/>
         </Card>
     </div>
 </template>
 
 <script>
-import { Card, Time } from 'iview';
+import { Card, Avatar, Time, Icon } from 'iview';
 import Cell from '@/components/Cell';
 
 export default {
   name: 'User',
   components: {
     Card,
+    Avatar,
     Time,
     Cell,
+    Icon,
   },
   data() {
     return {
@@ -59,8 +61,12 @@ export default {
   },
   methods: {
     async getUserInfo(loginName) {
-      const result = await this.$api.getUserInfo(loginName);
-      this.datas = result.data;
+      try {
+        const result = await this.$api.getUserInfo(loginName);
+        this.datas = result.data;
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   mounted() {
@@ -92,11 +98,6 @@ export default {
             display flex
             align-items center
             line-height 2em
-            .avatar
-                width 40px
-                border-radius 5px
-                overflow hidden
-                margin-right 10px
             span
                 margin-left 5px
     .slides
