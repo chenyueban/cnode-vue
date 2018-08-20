@@ -46,6 +46,10 @@
                             <a :href="`#${user.id}`">
                                 <span class="index">{{ index + 1 }}楼</span>
                             </a>
+                            <Tag
+                                color="success"
+                                v-if="$route.params.username === user.author.loginname"
+                            >作者</Tag>
                         </div>
                         <Button size="default" type="text" class="ups">
                             <Icon type="ios-thumbs-up" size="16" />
@@ -60,7 +64,7 @@
 </template>
 
 <script>
-import { Time, Icon, Button, Card, Avatar } from 'iview';
+import { Time, Icon, Button, Card, Avatar, Tag } from 'iview';
 import Put from '@/components/Put';
 
 export default {
@@ -71,6 +75,7 @@ export default {
     Button,
     Card,
     Avatar,
+    Tag,
     Put,
   },
   data() {
