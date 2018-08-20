@@ -2,9 +2,11 @@
     <div id="app">
         <Header/>
         <div class="main">
+            <router-view></router-view>
             <router-view name="main" :key="$route.params.id"></router-view>
-            <router-view name="user"></router-view>
+            <router-view name="user" :key="$route.params.loginname"></router-view>
             <router-view name="login"></router-view>
+            <router-view name="message"></router-view>
         </div>
         <BackTop />
     </div>

@@ -12,7 +12,7 @@ const router = new Router({
       name: 'root',
       path: '/',
       components: {
-        main: () => import('@/views/PostList'),
+        default: () => import('@/views/PostList'),
       },
     },
     {
@@ -27,7 +27,7 @@ const router = new Router({
       name: 'user',
       path: '/user/:loginname',
       components: {
-        main: () => import('@/views/User'),
+        user: () => import('@/views/User'),
       },
     },
     {
@@ -41,7 +41,7 @@ const router = new Router({
       name: 'message',
       path: '/message',
       components: {
-        login: () => import('@/views/Message'),
+        message: () => import('@/views/Message'),
       },
     },
   ],

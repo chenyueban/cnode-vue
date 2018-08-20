@@ -4,50 +4,63 @@
         class="article"
         :class="$route.params.username && 'mains'"
     >
-        <div class="head" v-if="post">
-            <div class="title">
+        <Card class="head" v-if="post">
+            <div slot="title" class="title">
                 <Put :data="post"/>
                 {{ post.title }}
-            </div>
-            <div class="changes">
-                <span>发布于<Time :time="post.create_at" /></span>
-                <span>作者 {{ post.author.loginname }}</span>
-                <span>{{ post.visit_count }} 次浏览</span>
-                <span>来自 {{ post.tab | formatTab }}</span>
-            </div>
-        </div>
-        <div class="detail" v-if="post">
-            <div class="content" v-html="post.content"></div>
-        </div>
-        <div class="reply" v-if="post">
-            <div class="head">{{ post.reply_count }} 回复</div>
-            <div class="cell" v-for="(user, index) in post.replies" :key="user.id" :id="user.id">
-                <div class="avatar">
-                    <img :src="user.author.avatar_url" :alt="user.author.loginname">
+                <div class="changes">
+                    <span><Icon type="md-egg" size="16" />发布于<Time :time="post.create_at" /></span>
+                    <span><Icon type="ios-happy" size="16" />作者 {{ post.author.loginname }}</span>
+                    <span><Icon type="ios-podium" size="16" />{{ post.visit_count }} 次浏览</span>
+                    <span><Icon type="md-subway" size="16" />来自 {{ post.tab | formatTab }}</span>
                 </div>
+            </div>
+
+            <div class="detail" v-if="post">
+                <div class="content" v-html="post.content"></div>
+            </div>
+        </Card>
+
+        <Card class="reply" v-if="post">
+            <div slot="title">
+                <Icon type="md-git-commit" size="18" />
+                {{ post.reply_count }} 回复
+            </div>
+            <div class="cell" v-for="(user, index) in post.replies" :key="user.id" :id="user.id">
+                <router-link
+                    class="avatar"
+                    :to="{
+                        name: 'user',
+                        params: {
+                            loginname: user.author.loginname
+                        }
+                    }"
+                >
+                    <Avatar size="default" :src="user.author.avatar_url" />
+                </router-link>
                 <div class="details">
                     <div class="info">
                         <div class="left">
                             <div class="name">{{ user.author.loginname }}</div>
+                            <Time class="time" :time="user.create_at"/>
                             <a :href="`#${user.id}`">
                                 <span class="index">{{ index + 1 }}楼</span>
-                                <Time class="time" :time="user.create_at"/>
                             </a>
                         </div>
                         <Button size="default" type="text" class="ups">
-                            <Icon type="ios-thumbs-up" />
-                            <span>{{ user.ups.length }}</span>
+                            <Icon type="ios-thumbs-up" size="16" />
+                            {{ user.ups.length }}
                         </Button>
                     </div>
                     <div class="content" v-html="user.content"></div>
                 </div>
             </div>
-        </div>
+        </Card>
     </div>
 </template>
 
 <script>
-import { Time, Icon, Button } from 'iview';
+import { Time, Icon, Button, Card, Avatar } from 'iview';
 import Put from '@/components/Put';
 
 export default {
@@ -56,6 +69,8 @@ export default {
     Time,
     Icon,
     Button,
+    Card,
+    Avatar,
     Put,
   },
   data() {
@@ -111,13 +126,12 @@ export default {
             span
                 font-size 12px
                 color #838383
-                margin-right 3px
-                &::before
-                    content '• '
+                margin-right 6px
+                display inline-flex
+                align-items center
     .detail
         padding 10px
         background-color #fff
-        border-top 1px solid #e5e5e5
         .content
             margin 0 10px
             font-size 14px
@@ -130,16 +144,14 @@ export default {
         .cell
             padding 10px
             background-color #fff
-            border-top 1px solid #f0f0f0
             font-size 14px
             display flex
             justify-content space-between
-            align-items center
+            align-items flex-start
+            &:not(:first-child)
+                border-top 1px solid #f0f0f0
             .avatar
-                width 30px
-                border-radius 5px
-                overflow hidden
-                margin 0 10px
+                margin 12px 10px 0
             .details
                 flex 1
                 display flex
@@ -155,10 +167,6 @@ export default {
                             padding-right 10px
                         .name
                             font-weight 700
-                        a
-                            .time
-                                &::before
-                                    content: ' • '
                     .ups
                         font-size 14px
             .content

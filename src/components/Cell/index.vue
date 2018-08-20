@@ -81,7 +81,8 @@ export default {
         font-size 14px
         display flex
         align-items center
-        border-bottom 1px solid #f0f0f0
+        &:not(:last-child)
+            border-bottom 1px solid #f0f0f0
         .reply
             width 80px
             font-size 12px
