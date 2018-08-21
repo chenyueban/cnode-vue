@@ -1,9 +1,7 @@
 <template>
     <div class="message">
-        <Card title="新消息" icon="ios-mail" style="margin-bottom: 10px">
-        </Card>
-        <Card title="过往消息" icon="ios-mail-open">
-        </Card>
+        <Card title="新消息" icon="ios-mail" style="margin-bottom: 10px"></Card>
+        <Card title="过往消息" icon="ios-mail-open"></Card>
     </div>
 </template>
 

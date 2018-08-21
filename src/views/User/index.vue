@@ -1,5 +1,5 @@
 <template>
-    <div class="user" :class="$route.params.username && 'slides'">
+    <div class="user">
         <Card class="card user-card" title="用户信息" v-if="datas">
             <div class="info">
                 <router-link
@@ -54,6 +54,7 @@ export default {
     Cell,
     Icon,
   },
+  props: ['username'],
   data() {
     return {
       datas: null,
@@ -71,7 +72,7 @@ export default {
   },
   mounted() {
     if (this.$route.params.loginname) this.getUserInfo(this.$route.params.loginname);
-    else this.getUserInfo(this.$route.params.username);
+    else this.getUserInfo(this.username);
   },
   computed: {
     limitTopics() {
@@ -92,6 +93,10 @@ export default {
 
 <style scoped lang="stylus">
     .user
+        flex-grow 1
+        overflow hidden
+        p
+            margin 0
         .card
             margin-bottom 15px
         .info
@@ -100,9 +105,4 @@ export default {
             line-height 2em
             span
                 margin-left 5px
-    .slides
-        width 290px
-        float right
-        p
-            margin 0
 </style>

@@ -30,7 +30,6 @@
                     name: 'topic',
                     params: {
                         id: datas.id,
-                        username: datas.author.loginname
                     }
                 }"
             >

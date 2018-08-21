@@ -17,10 +17,9 @@ const router = new Router({
     },
     {
       name: 'topic',
-      path: '/topic/:id&user=:username',
+      path: '/topic/:id',
       components: {
         main: () => import('@/views/Article'),
-        user: () => import('@/views/User'),
       },
     },
     {

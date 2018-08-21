@@ -2,14 +2,7 @@
     <div class="postlist">
         <Card icon="ios-options">
             <div class="head" slot="title">
-                <ButtonGroup size="default">
-                    <Button size="default" @click="getTopics(1, 'all')">全部</Button>
-                    <Button size="default" @click="getTopics(1, 'good')">精华</Button>
-                    <Button size="default" @click="getTopics(1, 'share')">分享</Button>
-                    <Button size="default" @click="getTopics(1, 'ask')">问答</Button>
-                    <Button size="default" @click="getTopics(1, 'job')">招聘</Button>
-                    <Button size="default" @click="getTopics(1, 'dev')">客户端测试</Button>
-                </ButtonGroup>
+                <Tab :page="current" :tab="$route.query.tab || 'all'" @changetab="routerTo"/>
             </div>
             <div class="list" v-if="datas">
                 <Cell v-for="data in datas" :datas="data" :key="data.in"/>
@@ -20,15 +13,16 @@
                 size="small"
                 show-elevator
                 :transfer="false"
-                @on-change="getTopics"
+                @on-change="routerTo"
             />
         </Card>
     </div>
 </template>
 
 <script>
-import { Time, Page, Card, ButtonGroup, Button } from 'iview';
+import { Time, Page, Card } from 'iview';
 import Cell from '@/components/Cell';
+import Tab from '@/components/Tab';
 
 export default {
   name: 'PostList',
@@ -37,8 +31,7 @@ export default {
     Page,
     Cell,
     Card,
-    ButtonGroup,
-    Button,
+    Tab,
   },
   data() {
     return {
@@ -48,6 +41,9 @@ export default {
     };
   },
   methods: {
+    routerTo(page = 1, tab = this.$route.query.tab || 'all') {
+      this.$router.push({ path: '/', query: { tab, page } });
+    },
     async getTopics(page = 1, tab = 'all') {
       try {
         const result = await this.$api.getTopics({
@@ -61,8 +57,16 @@ export default {
       }
     },
   },
+  watch: {
+    $route() {
+      const { tab, page } = this.$route.query;
+      if (tab && page) this.getTopics(page, tab);
+    },
+  },
   mounted() {
-    this.getTopics(this.current);
+    const { tab, page } = this.$route.query;
+    if (tab && page) this.getTopics(page, tab);
+    else this.getTopics(this.current);
   },
 };
 </script>

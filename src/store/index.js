@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     accesstoken: null,
     userinfo: null,
+    collects: null,
   },
   mutations: {
     login(state, { accesstoken, userinfo }) {
@@ -18,11 +19,15 @@ export default new Vuex.Store({
       state.accesstoken = null;
       state.userinfo = null;
     },
+
+    getCollects(state, collects) {
+      state.collects = collects;
+    },
   },
   actions: {
     async login(context, accesstoken) {
       try {
-        const result = await Service.getAccessToken(accesstoken);
+        const result = await Service.postAccessToken(accesstoken);
         context.commit('login', { accesstoken, userinfo: result });
         window.localStorage.setItem('accesstoken', accesstoken);
         return await { success: true, accesstoken, userinfo: result };
@@ -35,6 +40,16 @@ export default new Vuex.Store({
         context.commit('logout');
         window.localStorage.removeItem('accesstoken');
         return await { success: true };
+      } catch (e) {
+        return await { success: false, msg: e };
+      }
+    },
+
+    async getCollects(context, loginname) {
+      try {
+        const result = await Service.getCollects(loginname);
+        context.commit('getCollects', result.data);
+        return await { success: true, collects: result.data };
       } catch (e) {
         return await { success: false, msg: e };
       }

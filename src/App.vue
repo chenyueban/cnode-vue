@@ -56,4 +56,8 @@ export default {
             content: ''
             display block
             clear both
+
+    .ivu-card-head
+        p
+            margin 0!important
 </style>
