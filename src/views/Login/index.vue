@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <Card title="登录" icon="ios-glasses">
-            <a href="https://cnodejs.org/setting" slot="extra">获取Access Token?</a>
+            <a href="javascript:" slot="extra" @click="getHelp">获取Access Token?</a>
             <Input size="default" autofocus v-model="accesstoken" @on-enter="login">
                 <Button
                     size="default"
@@ -26,7 +26,7 @@ export default {
   },
   data() {
     return {
-      accesstoken: '44eb5a69-b322-42f2-adc4-8b1e33d4a21d',
+      accesstoken: '',
     };
   },
   methods: {
@@ -37,6 +37,9 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    getHelp() {
+      alert('PC端登录 cnodejs.org 后, 在设置页面可找到 Access Token');
     },
   },
 };

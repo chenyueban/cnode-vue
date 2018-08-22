@@ -4,11 +4,12 @@
         <div class="main">
             <router-view></router-view>
             <router-view name="main" :key="$route.params.id"></router-view>
+            <router-view name="create"></router-view>
             <router-view name="user" :key="$route.params.loginname"></router-view>
             <router-view name="login"></router-view>
             <router-view name="message"></router-view>
         </div>
-        <BackTop />
+        <BackTop/>
     </div>
 </template>
 
@@ -38,6 +39,7 @@ export default {
     ul, ol
         list-style none
         line-height 1
+
     a
         color inherit
         text-decoration none

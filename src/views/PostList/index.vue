@@ -3,6 +3,14 @@
         <Card icon="ios-options">
             <div class="head" slot="title">
                 <Tab :page="current" :tab="$route.query.tab || 'all'" @changetab="routerTo"/>
+                <Button
+                    v-if="isLogin"
+                    to="/create"
+                    size="default"
+                    type="success"
+                >
+                    发布主题
+                </Button>
             </div>
             <div class="list" v-if="datas">
                 <Cell v-for="data in datas" :datas="data" :key="data.in"/>
@@ -20,7 +28,7 @@
 </template>
 
 <script>
-import { Time, Page, Card } from 'iview';
+import { Time, Page, Card, Button } from 'iview';
 import Cell from '@/components/Cell';
 import Tab from '@/components/Tab';
 
@@ -32,13 +40,18 @@ export default {
     Cell,
     Card,
     Tab,
+    Button,
   },
   data() {
     return {
-      isLoading: false,
       datas: null,
       current: 1,
     };
+  },
+  computed: {
+    isLogin() {
+      return this.$store.state.accesstoken && this.$store.state.userinfo;
+    },
   },
   methods: {
     routerTo(page = 1, tab = this.$route.query.tab || 'all') {
@@ -73,6 +86,10 @@ export default {
 
 <style scoped lang="stylus">
     .postlist
+        .head
+            display flex
+            justify-content space-between
+            align-items center
         .page
             margin-top 10px
 </style>

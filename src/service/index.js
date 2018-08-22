@@ -31,6 +31,48 @@ export default class Api {
   }
 
   /**
+   * @api /topic
+   * @name 新建主题
+   *
+   * @method POST
+   *
+   * @param accesstoken String 用户的 accessToken
+   * @param title       String 标题
+   * @param tab         String 目前有 ask share job dev
+   * @param content     String 主体内容
+   */
+  static postTopic(accesstoken, tab, title, content) {
+    return http.post('/topics', {
+      accesstoken,
+      tab,
+      title,
+      content,
+    });
+  }
+
+  /**
+   * @api /topics/update
+   * @name 编辑主题
+   *
+   * @method POST
+   *
+   * @param accesstoken String 用户的 accessToken
+   * @param topic_id    String 主题id
+   * @param title       String 标题
+   * @param tab         String 目前有 ask share job dev
+   * @param content     String 主体内容
+   */
+  static postUpdateTopic(accesstoken, topicId, tab, title, content) {
+    return http.post('/topics', {
+      accesstoken,
+      topicId,
+      tab,
+      title,
+      content,
+    });
+  }
+
+  /**
    * @api /user/:loginname
    * @name 用户详情
    *

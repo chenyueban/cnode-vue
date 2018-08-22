@@ -23,6 +23,13 @@ const router = new Router({
       },
     },
     {
+      name: 'create',
+      path: '/create',
+      components: {
+        create: () => import('@/views/CreateTopic'),
+      },
+    },
+    {
       name: 'user',
       path: '/user/:loginname',
       components: {
